@@ -35,11 +35,21 @@ Tests
 6. is_match("thequickbrownfoxjumpsoverthelazydog",
             "thequickbrownfoxjumpsoverthehazycat") should return False.
 """
+import math
 
 
 def is_match(fingerprint_a: str, fingerprint_b: str) -> bool:
     """Return True if the two fingerprints match, otherwise False."""
-    pass
+    if len(fingerprint_a) == len(fingerprint_b):
+      words_length = len(fingerprint_a)
+      max_errors = math.floor(len(fingerprint_a)/10)
+      errors = 0
+      for letter in range(words_length):
+        if fingerprint_a[letter] != fingerprint_b[letter]:
+          errors += 1
+      return not errors > max_errors
+    else: 
+      return False
 
 
 if __name__ == "__main__":
@@ -52,7 +62,7 @@ if __name__ == "__main__":
         (("theslickbrownfoxjumpsoverthelazydog",
           "thequickbrownfoxjumpsoverthehazydog"), True),
         (("thequickbrownfoxjumpsoverthelazydog",
-          "thequickbrownfoxjumpsoverthehazycat"), False),
+          "thequickbrownfoxjumpsoverthehazycat"), False)
     ]
 
     passed = 0
