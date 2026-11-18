@@ -28,37 +28,33 @@ Tests
 3. count_rectangles(1, 2) should return 3.
 4. count_rectangles(5, 4) should return 150.
 5. count_rectangles(11, 19) should return 12540.
+
 """
 
 
 def count_rectangles(width, height):
     """Return how many integer-sized rectangles fit inside a width x height rectangle."""
-    squares = 0
-    for w in range(width,0,-1):
-        for h in range(height,0,-1):
-            whole_squares = width * height // (w*h)
-            min_square = width * height % (w*h)
-            squares += whole_squares + min_square
-            print(w,h,whole_squares, min_square, squares)
-    print(squares)
+    horizontal_pairs = width * (width + 1) // 2
+    vertical_pairs = height * (height + 1) // 2
+    return horizontal_pairs * vertical_pairs
 
 
 if __name__ == "__main__":
     count_rectangles(5,4)
-    # tests = [
-    #     ((1, 3), 6),
-    #     ((3, 2), 18),
-    #     ((1, 2), 3),
-    #     ((5, 4), 150),
-    #     ((11, 19), 12540),
-    # ]
+    tests = [
+        ((1, 3), 6),
+        ((3, 2), 18),
+        ((1, 2), 3),
+        ((5, 4), 150),
+        ((11, 19), 12540),
+    ]
 
-    # passed = 0
-    # for args, expected in tests:
-    #     result = count_rectangles(*args)
-    #     ok = result == expected
-    #     passed += ok
-    #     status = "PASS" if ok else "FAIL"
-    #     print(f"{status}: count_rectangles{args} -> {result!r} (expected {expected})")
+    passed = 0
+    for args, expected in tests:
+        result = count_rectangles(*args)
+        ok = result == expected
+        passed += ok
+        status = "PASS" if ok else "FAIL"
+        print(f"{status}: count_rectangles{args} -> {result!r} (expected {expected})")
 
-    # print(f"\n{passed}/{len(tests)} tests passed")
+    print(f"\n{passed}/{len(tests)} tests passed")
